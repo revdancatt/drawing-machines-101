@@ -1,0 +1,25 @@
+{
+  "name": "drawing-machines-101",
+  "version": "1.0.0",
+  "description": "Support files for the Drawing Machines 101 course",
+  "keywords": [
+    "penplotter",
+    "drawingmachines",
+    "genart",
+    "codeart",
+    "creativecoding"
+  ],
+  "homepage": "https://github.com/revdancatt/drawing-machines-101#readme",
+  "bugs": {
+    "url": "https://github.com/revdancatt/drawing-machines-101/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://revdancatt@github.com/revdancatt/drawing-machines-101.git"
+  },
+  "license": "MIT",
+  "author": "revdancatt",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  }
+}
