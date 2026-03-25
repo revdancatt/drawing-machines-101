@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>my design</title>
+</head>
+<body>
+
+<textarea id="target" cols="80" rows="40"></textarea>
+<br>
+<button id="save">Save</button>
+
+<script>
+  // This function deals with downloading the generated text
+  // as an SVG file
+  const download = (filename) => {
+    var element = document.createElement('a')
+    element.setAttribute('download', `${filename}.svg`)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    //  Blob code via gec @3Dgec https://twitter.com/3Dgec/status/1226018489862967297
+    element.setAttribute('href', window.URL.createObjectURL(new Blob([document.getElementById('target').textContent], {
+      type: 'text/plain;charset=utf-8'
+    })))
+
+    element.click()
+    document.body.removeChild(element)
+  }
+  // Set the filename here
+  document.getElementById('save').onclick = () => download('lines')
+</script>
+
+<script>
+
+  // Creates the head part of the SVG
+  const head = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="test.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:#000000;stroke-width:0.2mm"
+   >
+
+`
+
+  // Creates the tail part of the SVG
+  const tail = `
+  </g>
+</svg>`
+
+  // Set up some values
+  const step = 2
+  let y = 30
+
+  // And the empty body
+  let body = ``
+
+  // Now draw a whole bunch of lines down the page
+  while (y <= 267) {
+    // Make a line of THREE points, make the 'middle' point
+    // draw 2mm lower down than each end, why not add another
+    // point at 120mm too :)
+    body += `  <path d="M 60,${y} 90,${y+2} 150,${y}" />\n`
+    // Don't forget to increase y or else we'll never
+    // get above 267 and we'll be stuck in this loop forever
+    y = y + step
+  }
+
+  // Put it all together into the target textarea
+  document.getElementById('target').innerHTML = head + body + tail
+
+
+</script>
+</body>
+</html>

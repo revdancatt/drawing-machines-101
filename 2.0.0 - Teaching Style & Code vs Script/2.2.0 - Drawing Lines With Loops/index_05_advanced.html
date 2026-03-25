@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>my design</title>
+</head>
+<body>
+
+<textarea id="target" cols="80" rows="40"></textarea>
+<br>
+<button id="save">Save</button>
+
+<script>
+  // This function deals with downloading the generated text
+  // as an SVG file
+  const download = (filename) => {
+    var element = document.createElement('a')
+    element.setAttribute('download', `${filename}.svg`)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    //  Blob code via gec @3Dgec https://twitter.com/3Dgec/status/1226018489862967297
+    element.setAttribute('href', window.URL.createObjectURL(new Blob([document.getElementById('target').textContent], {
+      type: 'text/plain;charset=utf-8'
+    })))
+
+    element.click()
+    document.body.removeChild(element)
+  }
+  // Set the filename here
+  document.getElementById('save').onclick = () => download('lines')
+</script>
+
+<script>
+
+  // Set the width and height here to save time.
+  const width = 210
+  const height = 297
+
+  // Creates the head part of the SVG
+  const head = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="${width}mm"
+   height="${height}mm"
+   viewBox="0 0 ${width} ${height}"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="test.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:#000000;stroke-width:0.2mm"
+   >
+
+`
+  // Creates the tail part of the SVG
+  const tail = `
+  </g>
+</svg>`
+
+  // Hey, let's set the margins here too!
+  const sideMargin = 60
+  const topBottomMargin = 60
+  const step = 2
+
+  // Start at whatever the top margin is
+  let y = topBottomMargin
+  let body = ``
+
+  // Gunna loop until we get to the bottom margin
+  while (y <= height - topBottomMargin) {
+    // Go from the margin on the left to the margin on the right
+    body += `  <path d="M ${sideMargin},${y} ${width - sideMargin},${y}" />\n`
+    y = y + step
+  }
+
+  // Put it all together into the target textarea
+  document.getElementById('target').innerHTML = head + body + tail
+
+
+</script>
+</body>
+</html>
