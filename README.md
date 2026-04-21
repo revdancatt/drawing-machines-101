@@ -21,4 +21,4 @@ Supporting website with resources is here: https://penplotter.com/
 - 2.0.0 - Teaching Style & Code vs Script  [(video)](https://www.youtube.com/watch?v=nDX9u4kTehg&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=8)
   - [2.1.0 - Setting up our template 💾](./2.0.0%20-%20Teaching%20Style%20%26%20Code%20vs%20Script/2.1.0%20-%20Setting%20up%20our%20template) [(video)](https://www.youtube.com/watch?v=_rQPaB2O5kM&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=9)
   - [2.2.0 - Drawing Lines With Loops 💾](./2.0.0%20-%20Teaching%20Style%20%26%20Code%20vs%20Script/2.2.0%20-%20Drawing%20Lines%20With%20Loops) [(video)](https://www.youtube.com/watch?v=CeRw9BIJEus&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=10)
-  - [2.3.0 - Maybe, maybe not. If statements 💾](./2.0.0%20-%20Teaching%20Style%20%26%20Code%20vs%20Script/2.3.0%20-%20If%20Statements)
+  - [2.3.0 - Maybe, maybe not. If statements 💾](./2.0.0%20-%20Teaching%20Style%20%26%20Code%20vs%20Script/2.3.0%20-%20If%20Statements) [(video)](https://www.youtube.com/watch?v=PrfVs5_-LCA&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=11)
