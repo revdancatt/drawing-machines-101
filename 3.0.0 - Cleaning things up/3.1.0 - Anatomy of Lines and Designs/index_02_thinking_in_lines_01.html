@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>my design</title>
+</head>
+<body>
+
+<textarea id="target" cols="80" rows="40"></textarea>
+<br>
+<button id="save">Save</button>
+
+<script>
+  // This function deals with downloading the generated text
+  // as an SVG file
+  const download = (filename) => {
+    var element = document.createElement('a')
+    element.setAttribute('download', `${filename}.svg`)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    //  Blob code via gec @3Dgec https://twitter.com/3Dgec/status/1226018489862967297
+    element.setAttribute('href', window.URL.createObjectURL(new Blob([document.getElementById('target').textContent], {
+      type: 'text/plain;charset=utf-8'
+    })))
+
+    element.click()
+    document.body.removeChild(element)
+  }
+  // Set the filename here
+  document.getElementById('save').onclick = () => download('lines')
+</script>
+
+<script>
+
+  // Set the width and height here to save time.
+  const pageWidth = 210
+  const pageHeight = 297
+
+  // Creates the head part of the SVG
+  const head = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="${pageWidth}mm"
+   height="${pageHeight}mm"
+   viewBox="0 0 ${pageWidth} ${pageHeight}"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="test.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:#000000;stroke-width:0.2mm"
+   >
+
+`
+  // Creates the tail part of the SVG
+  const tail = `
+  </g>
+</svg>`
+
+  let body = ``
+
+  // Set the size of everything!
+  const squareSize = 10
+  const squareGap = 5
+  const squaresAcross = 12
+  const squaresDown = 16
+
+  // Work out the size of the design
+  const designWidth = (squaresAcross * squareSize) + ((squaresAcross - 1) * squareGap)
+  const designHeight = (squaresDown * squareSize) + ((squaresDown - 1) * squareGap)
+
+  // Figure out where we need to start, so the design in places in the
+  // middle of the page
+  const sideMargin = (pageWidth - designWidth) / 2
+  const topMargin = (pageHeight - designHeight) / 2
+
+  // The outer loop is the rows going down.
+  for (let down = 0; down < squaresDown; down += 1) {
+    // Work out where y lives for this row
+    const y = topMargin + ((squareSize + squareGap) * down)
+    // The inner loop is going across
+    for (let across = 0; across < squaresAcross; across += 1) {
+      // So we have to recalculate the x position each time
+      const x = sideMargin + ((squareSize + squareGap) * across)
+
+      // Make a line here
+      const line = []
+      
+      line.push({
+        x: x,
+        y: y
+      })
+      line.push({
+        x: x + squareSize,
+        y: y
+      })
+      line.push({
+        x: x + squareSize,
+        y: y + squareSize
+      })
+      line.push({
+        x: x,
+        y: y + squareSize
+      })
+      line.push({
+        x: x,
+        y: y
+      })
+
+      console.log(line)
+      // Draw a path with the four points to make a square.
+      // body += `<path d="M ${p1.x},${p1.y} ${p2.x},${p2.y} ${p3.x},${p3.y} ${p4.x},${p4.y} ${p1.x},${p1.y}" />\n`
+    }
+  }
+
+  // Put it all together into the target textarea
+  document.getElementById('target').innerHTML = head + body + tail
+
+
+</script>
+</body>
+</html>
