@@ -25,6 +25,6 @@ Supporting website with resources is here: https://penplotter.com/
   - [2.4.0 - Zero to One - part 1 - random 💾](./2.0.0%20-%20Teaching%20Style%20%26%20Code%20vs%20Script/2.4.0%20-%20Zero%20to%20One%20-%20part%201%20-%20random) [(video)](https://www.youtube.com/watch?v=teqy3BJql8o&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=12)
   - [2.5.0 - 2.5.0 - For Loops (lots of squares) 💾](./2.0.0%20-%20Teaching%20Style%20%26%20Code%20vs%20Script/2.5.0%20-%20For%20Loops%20-%20More%20Squares) [(video)](https://www.youtube.com/watch?v=vzUsfInp-Mc&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=13)
   - [2.6.0 - Hidden Line Removal 💾](./2.0.0%20-%20Teaching%20Style%20%26%20Code%20vs%20Script/2.6.0%20-%20Hidden%20Line%20Removal) [(video)](https://www.youtube.com/watch?v=p6l03tN4OMo&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=14)
-- 3.0.0 - Cleaning things up
-  - [3.1.0 - Anatomy of Lines and Designs 💾]() [(video)]()
-  - [3.2.0 - Separating Design from Output 💾]() [(video)]()
+- 3.0.0 - Cleaning things up [(video)](https://www.youtube.com/watch?v=fNPyYXXTkiY&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=15)
+  - [3.1.0 - Anatomy of Lines and Designs 💾](./3.0.0%20-%20Cleaning%20things%20up/3.1.0%20-%20Anatomy%20of%20Lines%20and%20Designs) [(video)](https://www.youtube.com/watch?v=j7mBMcDFCgo&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=16)
+  - [3.2.0 - Separating Design from Output 💾](./3.0.0%20-%20Cleaning%20things%20up/3.2.0%20-%20Separating%20Design%20from%20Output) [(video)]()
