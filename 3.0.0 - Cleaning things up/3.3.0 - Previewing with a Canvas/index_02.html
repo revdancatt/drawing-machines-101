@@ -1,0 +1,312 @@
+<html>
+<head>
+<title>my design</title>
+<style>
+  body {
+    margin: 1rem;
+  }
+  .columns {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start
+  }
+  .column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  canvas#preview {
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div class="columns">
+  <div class="column" id="canvas_holder">
+    <canvas id="preview"></canvas>
+  </div>
+  <div class="column" id="controls">
+    <textarea id="target" cols="80" rows="40"></textarea>
+    <br>
+    <button id="save">Save</button>
+  </div>
+</div>
+
+<script>
+  // This function deals with downloading the generated text
+  // as an SVG file
+  const download = (filename) => {
+    var element = document.createElement('a')
+    element.setAttribute('download', `${filename}.svg`)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    //  Blob code via gec @3Dgec https://twitter.com/3Dgec/status/1226018489862967297
+    element.setAttribute('href', window.URL.createObjectURL(new Blob([document.getElementById('target').textContent], {
+      type: 'text/plain;charset=utf-8'
+    })))
+
+    element.click()
+    document.body.removeChild(element)
+  }
+  // Set the filename here
+  document.getElementById('save').onclick = () => download('lines')
+</script>
+
+<script>
+
+  // Set the width and height here to save time.
+  const pageWidth = 210
+  const pageHeight = 297
+
+  // Set the size of everything!
+  const squareSize = 15
+  const squareGap = 5
+  const squaresAcross = 10
+  const squaresDown = 14
+
+  // Work out the size of the design
+  const designWidth = (squaresAcross * squareSize) + ((squaresAcross - 1) * squareGap)
+  const designHeight = (squaresDown * squareSize) + ((squaresDown - 1) * squareGap)
+
+  // Set the outer positions for off the page
+  const overlap = 10
+  const outerLeft = -overlap
+  const outerRight = pageWidth + overlap
+  const outerTop = -overlap
+  const outerBottom = pageHeight + overlap
+
+  // Set the inner positions for cropping
+  const cropSides = 15
+  const cropTopBottom = 15
+
+  const cropLeft = cropSides
+  const cropRight = pageWidth - cropSides
+  const cropTop = cropTopBottom
+  const cropBottom = pageHeight - cropTopBottom
+
+  // Figure out where we need to start, so the design in places in the
+  // middle of the page
+  const sideMargin = (pageWidth - designWidth) / 2
+  const topMargin = (pageHeight - designHeight) / 2
+
+  // This is where we store our design
+  const allLines = []
+
+  // The outer loop is the rows going down.
+  for (let down = 0; down < squaresDown; down += 1) {
+    // Work out where y lives for this row
+    const y = topMargin + ((squareSize + squareGap) * down)
+    // The inner loop is going across
+    for (let across = 0; across < squaresAcross; across += 1) {
+      // So we have to recalculate the x position each time
+      const x = sideMargin + ((squareSize + squareGap) * across)
+
+      // Make a line here
+      const line = {
+        layer: 0,
+        stroke: true,
+        fill: false,
+        points: []
+      }
+      
+      // Add all the points in a slightly shorter format
+      line.points.push({x: x, y: y })
+      line.points.push({x: x + squareSize, y: y})
+      line.points.push({x: x + squareSize, y: y + squareSize})
+      line.points.push({x: x, y: y + squareSize})
+      line.points.push({x: x, y: y})
+
+      allLines.push(line)
+
+    }
+  }
+
+  // Top cropper
+  allLines.push({
+    layer: 1,
+    stroke: false,
+    fill: true,
+    points: [
+      {x: outerLeft, y: outerTop},
+      {x: outerRight, y: outerTop},
+      {x: outerRight, y: cropTop},
+      {x: outerLeft, y: cropTop},
+      {x: outerLeft, y: outerTop}
+    ]
+  })
+
+  // Right cropper
+  allLines.push({
+    layer: 1,
+    stroke: false,
+    fill: true,
+    points: [
+      {x: cropRight, y: outerTop},
+      {x: outerRight, y: outerTop},
+      {x: outerRight, y: outerBottom},
+      {x: cropRight, y: outerBottom},
+      {x: cropRight, y: outerTop}
+    ]
+  })
+
+  // Left cropper
+  allLines.push({
+    layer: 1,
+    stroke: false,
+    fill: true,
+    points: [
+      {x: outerLeft, y: outerTop},
+      {x: cropLeft, y: outerTop},
+      {x: cropLeft, y: outerBottom},
+      {x: outerLeft, y: outerBottom},
+      {x: outerLeft, y: outerTop}
+    ]
+  })
+
+  // Bottom cropper
+  allLines.push({
+    layer: 1,
+    stroke: false,
+    fill: true,
+    points: [
+      {x: outerLeft, y: cropBottom},
+      {x: outerRight, y: cropBottom},
+      {x: outerRight, y: outerBottom},
+      {x: outerLeft, y: outerBottom},
+      {x: outerLeft, y: cropBottom}
+    ]
+  })
+
+  // Margin
+  allLines.push({
+    layer: 1,
+    stroke: true,
+    fill: false,
+    points: [
+      {x: cropLeft, y:cropTop},
+      {x: cropRight, y: cropTop},
+      {x: cropRight, y: cropBottom},
+      {x: cropLeft, y: cropBottom},
+      {x: cropLeft, y: cropTop}
+    ]
+  })
+
+  console.log('\n')
+  console.log('All Lines: ')
+  console.log(allLines)
+  console.log('\n')
+
+
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  const scaleMod = 10
+  const canvas = document.getElementById('preview')
+  canvas.width = pageWidth * scaleMod
+  canvas.height = pageHeight * scaleMod
+
+  const ctx = canvas.getContext('2d')
+  ctx.fillStyle = '#f6f6f6'
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+  ctx.lineWidth = canvas.width / 500
+  ctx.strokeStyle = 'black'
+  ctx.fillStyle = '#ffeeee'
+
+  // Loop through all the lines
+  for (let i = 0; i < allLines.length; i += 1) {
+    // Grab the line
+    const line = allLines[i]
+    // Grab the points
+    const points = line.points
+
+    ctx.beginPath()
+    ctx.moveTo(points[0].x * scaleMod, points[0].y * scaleMod)
+
+    // Loop through all the rest of the points
+    for (let j = 1; j < points.length; j ++) {
+      const point = points[j]
+      ctx.lineTo(point.x * scaleMod, point.y * scaleMod)
+    }
+    if (line.fill == true) ctx.fill()
+    if (line.stroke == true) ctx.stroke()
+  }
+
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+  // Creates the head part of the SVG
+  const head = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="${pageWidth}mm"
+   height="${pageHeight}mm"
+   viewBox="0 0 ${pageWidth} ${pageHeight}"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="test.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none"
+   >
+
+`
+  // Creates the tail part of the SVG
+  const tail = `
+  </g>
+</svg>`
+
+  let body = ``
+
+  // Loop through all the lines
+  for (let i = 0; i < allLines.length; i += 1) {
+    // Grab the line
+    const line = allLines[i]
+    // Grab the points
+    const points = line.points
+    
+    //   Make a new path
+    let path = '<path style="'
+    if (line.stroke == true) {
+      path += 'stroke:#000000;stroke-width:0.2mm;'
+    }
+    if (line.fill == true) {
+      path += 'fill:#FFFFFF;'
+    }
+    path += '" d="M '
+    // Loop through all the points
+    for (let j = 0; j < points.length; j ++) {
+      const point = points[j]
+      path += `${point.x},${point.y} `
+    }
+    path += '" />\n'
+
+    // Add the path to the body
+    body += path
+  }
+
+  // Put it all together into the target textarea
+  document.getElementById('target').innerHTML = head + body + tail
+
+
+</script>
+</body>
+</html>
