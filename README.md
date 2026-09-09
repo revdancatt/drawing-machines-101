@@ -29,5 +29,5 @@ Supporting website with resources is here: https://penplotter.com/
   - [3.1.0 - Anatomy of Lines and Designs 💾](./3.0.0%20-%20Cleaning%20things%20up/3.1.0%20-%20Anatomy%20of%20Lines%20and%20Designs) [(video)](https://www.youtube.com/watch?v=j7mBMcDFCgo&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=16)
   - [3.2.0 - Separating Design from Display 💾](./3.0.0%20-%20Cleaning%20things%20up/3.2.0%20-%20Separating%20Design%20from%20Output) [(video)](https://www.youtube.com/watch?v=VVQxkuV1YfA&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=17)
   - [3.3.0 - Previewing with a Canvas 💾](./3.0.0%20-%20Cleaning%20things%20up/3.3.0%20-%20Previewing%20with%20a%20Canvas) [(video)](https://www.youtube.com/watch?v=Cf0bhtWWX90&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=18)
-  - [3.4.0 - GCODE 💾](./3.0.0%20-%20Cleaning%20things%20up/3.4.0%20-%20GCODE) [video - coming soon]
+  - [3.4.0 - GCODE 💾](./3.0.0%20-%20Cleaning%20things%20up/3.4.0%20-%20GCODE) [(video)](https://www.youtube.com/watch?v=3ke8haNqGdw&list=PLeu6FqNAI8Gtr_IJchyB-iNgBALyJaQkT&index=19)
   - [3.5.0 - Previewing with a Canvas 💾](./3.0.0%20-%20Cleaning%20things%20up/3.5.0%20-%20Moving%20code%20into%20Functions) [video - coming soon]
